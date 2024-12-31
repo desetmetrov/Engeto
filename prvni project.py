@@ -80,68 +80,56 @@ if access_granted:
     )
 
     # User choice
-    user_choice = input(f"Enter a number between 1 and {text_split_len} to select: ").strip()
+    while True:
+        user_choice = input(f"Enter a number between 1 and {text_split_len} to select: ").strip()
 
-    # Check if choice is a digit
-    if not user_choice.isdigit():
-        print("Please use digits.")
-    else:
+        # Check if input is a digit
+        if not user_choice.isdigit():
+            print("Please enter a valid number.")
+            continue
+
         user_choice = int(user_choice)
 
         # Check if digit is in range
-        if not (1 <= user_choice <= text_split_len):
-            print(f"Enter a correct digit between 1 and {text_split_len}.")
+        if 1 <= user_choice <= text_split_len:
+            break
         else:
-            user_choice_text = texts[user_choice - 1]
+            print(f"Enter a correct digit between 1 and {text_split_len}.")
 
-            # Analyze the text
-            user_choice_text_sum_word = len(user_choice_text.split())
-            user_choice_text_len_cap = sum(word.istitle() for word in user_choice_text.split())
-            user_choice_text_sum_upper = sum(word.isupper() for word in user_choice_text.split())
-            user_choice_text_sum_low = sum(word.islower() for word in user_choice_text.split())
-            user_choice_text_sum_dig = sum(word.isdigit() for word in user_choice_text.split())
-            sum_of_numbers = sum(int(word) for word in user_choice_text.split() if word.isdigit())
+    # Analyze the selected text
+    user_choice_text = texts[user_choice - 1]
+    user_choice_text_sum_word = len(user_choice_text.split())
+    user_choice_text_len_cap = sum(word.istitle() for word in user_choice_text.split())
+    user_choice_text_sum_upper = sum(word.isupper() for word in user_choice_text.split())
+    user_choice_text_sum_low = sum(word.islower() for word in user_choice_text.split())
+    user_choice_text_sum_dig = sum(word.isdigit() for word in user_choice_text.split())
+    sum_of_numbers = sum(int(word) for word in user_choice_text.split() if word.isdigit())
 
-            # Calc words and their lengths
-            cleaned_words = [word.strip(",.?!") for word in user_choice_text.split()]
-            word_lengths = [len(word) for word in cleaned_words]
+    # Calculate words and their lengths
+    cleaned_words = [word.strip(",.?!") for word in user_choice_text.split()]
+    word_lengths = [len(word) for word in cleaned_words]
 
-            length_counts = {}
-            for length in word_lengths:
-                if length in length_counts:
-                    length_counts[length] += 1
-                else:
-                    length_counts[length] = 1
+    length_counts = {}
+    for length in word_lengths:
+        if length in length_counts:
+            length_counts[length] += 1
+        else:
+            length_counts[length] = 1
 
-            # calc max stars for text output formatting
-            max_count = max(length_counts.values())
+    # Output results
+    print(
+        f"There are {user_choice_text_sum_word} words in the selected text.\n"
+        f"There are {user_choice_text_len_cap} titlecase words.\n"
+        f"There are {user_choice_text_sum_upper} uppercase words.\n"
+        f"There are {user_choice_text_sum_low} lowercase words.\n"
+        f"There are {user_choice_text_sum_dig} numeric strings.\n"
+        f"The sum of all the numbers is {sum_of_numbers}.\n"
+        f"{'-' * 40}\n"
+        f"{'NR':<5}| {'OCCURRENCES':<29}| {'NR':<3}"
+    )
 
-            print(
-                f"There are {user_choice_text_sum_word} words in the selected text.\n"
-                f"There are {user_choice_text_len_cap} titlecase words.\n"
-                f"There are {user_choice_text_sum_upper} uppercase words.\n"
-                f"There are {user_choice_text_sum_low} lowercase words.\n"
-                f"There are {user_choice_text_sum_dig} numeric strings.\n"
-                f"The sum of all the numbers is {sum_of_numbers}.\n"
-                f"{'-' * 40}\n"
-                f"{'NR':<5}| {'OCCURRENCES':<29}| {'NR':<3}"
-            )
+    print(f"{'-' * 5}| {'-' * 29}| {'-' * 3}")
 
-            print(f"{'-' * 5}| {'-' * 29}| {'-' * 3}")
-
-            for length, count in sorted(length_counts.items()):
-                stars = '*' * count
-                print(f"{length:<5}| {stars:<29}| {count:<3}")
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for length, count in sorted(length_counts.items()):
+        stars = '*' * count
+        print(f"{length:<5}| {stars:<29}| {count:<3}")
