@@ -1,9 +1,7 @@
 #"""
 #projekt_1.py: první projekt do Engeto Online Python Akademie
 
-#author: Vladimír Kosťukovič
 
-#email: kostyukovych@gmail.com
 #"""
 #tady bude začínat tvůj kód
 
