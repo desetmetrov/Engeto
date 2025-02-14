@@ -1,7 +1,18 @@
+#"""
+#projekt N 2.py: druрý projekt do Engeto Online Python Akademie
+
+# Vladimír Kosťukovič
+
+# kostyukovyc@gmail.com
+
+#"""
+#tady bude začínat tvůj kód
+
 import random
 from time import time
 
-print("Welcome to the game Bulls&Cows")
+print("Hi There!"
+      "I've generated a random 4 digit number for you. Let's play a bulls and cows game.")
 
 # Function to generate 4 digit unique number
 def generate_random_num():
@@ -16,7 +27,7 @@ random_num_save = generate_random_num()
 # Function for user generation
 def user_num_generation():
     while True:
-        user_input = input("Enter your 4 digit number:")
+        user_input = input("Enter a number:")
         if not user_input.isdigit() or not 1000 <= int(user_input) <= 9999:
             print(f"Your choice {user_input} is not correct, use 4 digits to start game.")
             continue
@@ -42,7 +53,7 @@ def count_cows(secret_num, user_num):
             cows += 1
     return cows
 
-# GAming
+# Gaming
 def start_game():
     random_num_save = generate_random_num()
     start_game_time = time()
